@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b0b">
+<title>ZUMA METAL GOLD</title>
+<style>
+:root{--gold:#d6ad52;--gold2:#f4d98b;--bg:#090909;--panel:#151515;--muted:#aaa}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f2e7;font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:20px 18px;background:linear-gradient(120deg,#080808,#201909);border-bottom:1px solid #6d5425;position:sticky;top:0;z-index:3}
+.brand{font-family:Georgia,serif;letter-spacing:2px;color:var(--gold2);font-size:21px;font-weight:bold}.tag{font-size:10px;letter-spacing:2px;color:#c9b47d;margin-top:4px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px 14px;background:#101010;position:sticky;top:76px;z-index:2}
+button,.btn{border:1px solid #876b32;background:#211b0e;color:var(--gold2);padding:11px 14px;border-radius:9px;font-weight:650;cursor:pointer}
+button.active,.primary{background:linear-gradient(135deg,#f0d58c,#b8862b);color:#17120a;border:0}
+main{max-width:850px;margin:auto;padding:18px}
+.hero{padding:24px 20px;border:1px solid #6e552b;border-radius:16px;background:radial-gradient(circle at 85% 10%,#493616 0,#1b160c 34%,#121212 75%);margin-bottom:18px}
+.eyebrow{color:var(--gold);letter-spacing:2px;font-size:11px}.hero h1{font:30px Georgia,serif;margin:10px 0}.hero p{color:#d1c8b5;line-height:1.5}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1}
+.stats,.card{background:var(--panel);border:1px solid #383024;border-radius:13px;padding:15px;margin-bottom:12px}
+.label{color:var(--muted);font-size:12px}.price{font-size:22px;color:var(--gold2);font-weight:750}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px}
+.product{background:#151515;border:1px solid #443720;border-radius:13px;padding:14px}
+.bar{height:62px;border-radius:8px;background:linear-gradient(135deg,#f6df9d,#a77720 55%,#f4d98b);margin-bottom:12px;display:grid;place-items:center;color:#30220a;font-weight:900;letter-spacing:2px}
+.product h3{margin:4px 0;font-size:15px}.product small{color:#aaa}.product .price{font-size:17px;margin:8px 0}
+section{display:none}section.show{display:block}.field{display:block;width:100%;padding:12px;margin:7px 0 14px;border-radius:8px;border:1px solid #51432a;background:#0c0c0c;color:white}
+.notice{font-size:12px;color:#c7bda8;line-height:1.5;border-left:3px solid var(--gold);padding:9px 12px;background:#17140e;margin:14px 0}
+footer{text-align:center;color:#777;padding:25px;font-size:11px}
+</style>
+</head>
+<body>
+<header><div class="brand">ZUMA METAL GOLD</div><div class="tag">TRUST • PURITY • EXCELLENCE</div></header>
+<nav>
+<button class="active" onclick="show('home',this)">Home</button>
+<button onclick="show('buy',this)">Buy Gold</button>
+<button onclick="show('sell',this)">Sell Gold</button>
+<button onclick="show('orders',this)">My Orders</button>
+<button onclick="show('account',this)">Account</button>
+</nav>
+<main>
+<section id="home" class="show">
+<div class="hero"><div class="eyebrow">PHYSICAL GOLD BULLION</div><h1>Own a piece of enduring value.</h1><p>Explore physical gold bars and bullion. Browse products and submit enquiries from one simple marketplace.</p><div class="row"><button class="primary" onclick="showById('buy')">Explore Gold</button><button onclick="showById('sell')">Request to Sell</button></div></div>
+<div class="row"><div class="stats"><div class="label">Marketplace status</div><div class="price">Preview</div><small>Demo mode</small></div><div class="stats"><div class="label">Inventory locations</div><div class="price">NG · GH</div><small>Subject to verification</small></div></div>
+<div class="notice">Prices, stock and transactions shown in this starter are demonstration content only. No live gold price, payment, wallet balance or shipment is connected.</div>
+<h2>Featured bullion</h2><div id="featured" class="grid"></div>
+</section>
+<section id="buy"><h2>Buy physical gold</h2><p class="label">Illustrative catalogue — not a live offer or quote.</p><div class="grid" id="products"></div></section>
+<section id="sell"><h2>Request to sell gold</h2><p class="label">Submit details for a human assessment. Final price requires inspection and verification.</p>
+<form onsubmit="submitSell(event)"><label>Full name<input class="field" required></label><label>Email or phone<input class="field" required></label><label>Gold weight (grams)<input class="field" type="number" min="0.01" step="0.01" required></label><label>Purity (if known)<select class="field"><option>Not sure</option><option>24K / 999.9</option><option>22K</option><option>18K</option></select></label><label>Additional details<textarea class="field" rows="3"></textarea></label><button class="primary">Submit demo request</button></form><p id="sellmsg" class="notice" hidden></p></section>
+<section id="orders"><h2>My orders</h2><div class="card"><strong>No orders yet</strong><p class="label">Demo orders will appear here after a test checkout is added.</p></div></section>
+<section id="account"><h2>Customer account</h2><div class="card"><p>Account registration and identity verification will be added in the next development stage.</p><button onclick="alert('Account flow is a planned feature in this demo.')">Create account (preview)</button></div></section>
+</main><footer>© ZUMA METAL GOLD · Prototype only · No real transactions</footer>
+<script>
+const items=[['1 g bar','1 gram','Illustrative price: quote required'],['5 g bar','5 grams','Illustrative price: quote required'],['10 g bar','10 grams','Illustrative price: quote required'],['20 g bar','20 grams','Illustrative price: quote required'],['1 oz bar','1 troy ounce','Illustrative price: quote required'],['50 g bar','50 grams','Illustrative price: quote required'],['100 g bar','100 grams','Illustrative price: quote required'],['500 g bar','500 grams','Illustrative price: quote required'],['1 kg bar','1 kilogram','Illustrative price: quote required']];
+function productCard(x){return `<div class="product"><div class="bar">ZMG</div><h3>${x[0]}</h3><small>${x[1]} · purity to be confirmed</small><div class="price">Request a quote</div><button onclick="alert('This is a preview. Live ordering will be enabled after supplier, legal, stock and payment checks.')">Enquire</button></div>`}
+document.getElementById('products').innerHTML=items.map(productCard).join('');
+document.getElementById('featured').innerHTML=items.slice(1,4).map(productCard).join('');
+function show(id,btn){document.querySelectorAll('section').forEach(s=>s.classList.remove('show'));document.getElementById(id).classList.add('show');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
+function showById(id){show(id);document.querySelectorAll('nav button').forEach(b=>{if(b.textContent.toLowerCase().includes(id==='buy'?'buy': 'sell'))b.classList.add('active')})}
+function submitSell(e){e.preventDefault();let m=document.getElementById('sellmsg');m.hidden=false;m.textContent='Demo request captured on this device only. No information has been sent to ZUMA METAL GOLD.';e.target.reset()}
+</script>
+</body></html>
